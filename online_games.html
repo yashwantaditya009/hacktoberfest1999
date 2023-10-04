@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Falling Objects Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #game-container {
+            width: 100%;
+            height: 100vh;
+            background-color: skyblue;
+            position: relative;
+        }
+        .falling-object {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container"></div>
+
+    <script>
+        const gameContainer = document.getElementById("game-container");
+        
+        // Function to create a falling object
+        function createFallingObject() {
+            const object = document.createElement("div");
+            object.className = "falling-object";
+            object.style.left = Math.random() * (window.innerWidth - 30) + "px";
+            gameContainer.appendChild(object);
+            
+            // Animate the falling object
+            let top = 0;
+            const fallSpeed = Math.random() * 3 + 1; // Adjust the speed as needed
+            const interval = setInterval(() => {
+                top += fallSpeed;
+                object.style.top = top + "px";
+                
+                // Check if the object is caught
+                if (top > window.innerHeight - 30) {
+                    clearInterval(interval);
+                    gameContainer.removeChild(object);
+                }
+            }, 10);
+        }
+        
+        // Create falling objects at regular intervals
+        setInterval(createFallingObject, 2000); // Adjust the interval as needed
+    </script>
+</body>
+</html>
